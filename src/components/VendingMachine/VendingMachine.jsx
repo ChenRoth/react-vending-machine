@@ -78,9 +78,7 @@ export class VendingMachine extends React.Component {
 
     handleOnBeforeBuy = (product) => {
         if (!product) {
-            this.setState({
-                msg: 'Sold out, please pick another',
-            });
+            this.showMsg('Sold out, please pick another');
             return;
         }
 
@@ -89,9 +87,7 @@ export class VendingMachine extends React.Component {
         const { insertedMoney, products, revenue } = this.state;
         const isEnoughMoney = price <= insertedMoney;
         if (!isEnoughMoney) {
-            this.setState({
-                msg: 'Sorry dude, not enough dineros'
-            });
+            this.showMsg('Sorry dude, not enough dineros');
             return;
         }
         /*
@@ -110,11 +106,26 @@ export class VendingMachine extends React.Component {
             insertedMoney: 0,
             revenue: revenue + price,
             products: modifiedProducts,
-            msg: 'Thank you!',
         });
+
+        this.showMsg('Thank you');
 
         const change = insertedMoney - price;
         onBuy(product, change);
+    }
+
+    showMsg = (msg) => {
+        setTimeout(() => {
+            this.setState({
+                msg,
+            });    
+        }, 0);
+        
+        setTimeout(() => {
+            this.setState({
+                msg: '',
+            });
+        }, 2000);
     }
 
     handleOnBeforeInsert = (coin) => {
