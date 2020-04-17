@@ -51,16 +51,19 @@ export class VendingMachine extends React.Component {
         const shelves = Array.from(new Array(numOfShelves));
         return (
             <div>
-                <Display msg={msg} />
-                <CoinSlot onBeforeInsert={this.handleOnBeforeInsert} />
-                {shelves.map((_, i) =>
-                    <div key={i} style={{display: 'flex'}}>
-                        {products.slice(i * PRODUCTS_PER_SHELF, (i + 1) * PRODUCTS_PER_SHELF).map((p, j) =>
-                            <Cell key={j} product={p} onBeforeBuy={this.handleOnBeforeBuy} />
-                        )}
-                    </div>
-                )}
-
+                <div>
+                    {shelves.map((_, i) =>
+                        <div key={i} style={{ display: 'flex' }}>
+                            {products.slice(i * PRODUCTS_PER_SHELF, (i + 1) * PRODUCTS_PER_SHELF).map((p, j) =>
+                                <Cell key={j} product={p} onBeforeBuy={this.handleOnBeforeBuy} />
+                            )}
+                        </div>
+                    )}
+                </div>
+                <div>
+                    <Display msg={msg} />
+                    <CoinSlot onBeforeInsert={this.handleOnBeforeInsert} />
+                </div>
             </div>
         )
     }
