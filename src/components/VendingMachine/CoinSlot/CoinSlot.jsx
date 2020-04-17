@@ -1,11 +1,12 @@
 import React from 'react';
+import {Button} from 'react-bootstrap'
 
 export class CoinSlot extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={() => this.handleBeforeInsert(5)}>5 ₪</button>
-                <button onClick={() => this.handleBeforeInsert(10)}>10 ₪</button>
+                <Button variant="success" onClick={() => this.handleBeforeInsert(5)}>5 ₪</Button>
+                <Button variant="success" onClick={() => this.handleBeforeInsert(10)}>10 ₪</Button>
             </div>
         )
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Product } from '../Product/Product';
+import {Button} from 'react-bootstrap';
 
 export class Cell extends React.Component {
     render() {
@@ -7,7 +8,7 @@ export class Cell extends React.Component {
         return (
             <div>
                 <Product {...product} />
-                <button onClick={this.handleOnBeforeBuy}>BUY</button>
+                <Button variant="primary" onClick={this.handleOnBeforeBuy}>BUY</Button>
             </div>
         )
     }
