@@ -57,7 +57,7 @@ export class VendingMachine extends React.Component {
                         {shelves.map((_, i) =>
                             <Row key={i}>
                                 {products.slice(i * PRODUCTS_PER_SHELF, (i + 1) * PRODUCTS_PER_SHELF).map((p, j) =>
-                                    <Col>
+                                    <Col xs={Math.ceil(12 / PRODUCTS_PER_SHELF)} >
                                         <Cell key={j} product={p} onBeforeBuy={this.handleOnBeforeBuy} />
                                     </Col>
                                 )}

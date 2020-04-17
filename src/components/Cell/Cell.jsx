@@ -1,15 +1,19 @@
 import React from 'react';
 import { Product } from '../Product/Product';
-import {Button} from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 
 export class Cell extends React.Component {
     render() {
-        const {product} = this.props;
+        const { product } = this.props;
         return (
-            <div>
-                <Product {...product} />
-                <Button variant="primary" onClick={this.handleOnBeforeBuy}>BUY</Button>
-            </div>
+            <Card>
+                <Card.Header>
+                    <Product {...product} />
+                </Card.Header>
+                <Card.Footer>
+                    <Button variant="primary" onClick={this.handleOnBeforeBuy}>BUY</Button>
+                </Card.Footer>
+            </Card>
         )
     }
 
