@@ -6,7 +6,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <VendingMachine onBeforeInsert={(coin) => coin < 10}/>
+        <VendingMachine onBeforeInsert={(coin) => true} onBuy={console.log}/>
       </div>
     )
   }
