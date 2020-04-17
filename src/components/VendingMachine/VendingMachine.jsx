@@ -53,7 +53,7 @@ export class VendingMachine extends React.Component {
         return (
             <Container>
                 <Row>
-                    <Col xs={10}>
+                    <Col xs={9}>
                         {shelves.map((_, i) =>
                             <Row key={i}>
                                 {products.slice(i * PRODUCTS_PER_SHELF, (i + 1) * PRODUCTS_PER_SHELF).map((p, j) =>
@@ -64,7 +64,7 @@ export class VendingMachine extends React.Component {
                             </Row>
                         )}
                     </Col>
-                    <Col xs={2}>
+                    <Col xs={3}>
                         <Display msg={msg} />
                         <CoinSlot onBeforeInsert={this.handleOnBeforeInsert} />
                     </Col>
