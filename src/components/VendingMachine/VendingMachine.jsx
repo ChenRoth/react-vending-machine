@@ -3,6 +3,8 @@ import { Display } from '../Display/Display';
 import { CoinSlot } from './CoinSlot/CoinSlot';
 import { Cell } from '../Cell/Cell';
 
+const PRODUCTS_PER_SHELF = 4;
+
 export class VendingMachine extends React.Component {
     state = {
         products: [
@@ -44,13 +46,21 @@ export class VendingMachine extends React.Component {
 
     render() {
         const { msg, products } = this.state;
+
+        const numOfShelves = Math.ceil(products.length / PRODUCTS_PER_SHELF);
+        const shelves = Array.from(new Array(numOfShelves));
         return (
             <div>
                 <Display msg={msg} />
                 <CoinSlot onBeforeInsert={this.handleOnBeforeInsert} />
-                {products.map((p, i) =>
-                    <Cell key={i} product={p} onBeforeBuy={this.handleOnBeforeBuy} />
+                {shelves.map((_, i) =>
+                    <div key={i} style={{display: 'flex'}}>
+                        {products.slice(i * PRODUCTS_PER_SHELF, (i + 1) * PRODUCTS_PER_SHELF).map((p, j) =>
+                            <Cell key={j} product={p} onBeforeBuy={this.handleOnBeforeBuy} />
+                        )}
+                    </div>
                 )}
+
             </div>
         )
     }
@@ -63,9 +73,9 @@ export class VendingMachine extends React.Component {
             return;
         }
 
-        const {price} = product;
-        const {onBuy} = this.props;
-        const {insertedMoney, products, revenue} = this.state;
+        const { price } = product;
+        const { onBuy } = this.props;
+        const { insertedMoney, products, revenue } = this.state;
         const isEnoughMoney = price <= insertedMoney;
         if (!isEnoughMoney) {
             this.setState({
@@ -86,7 +96,7 @@ export class VendingMachine extends React.Component {
         const modifiedProducts = products.slice();
         modifiedProducts[index] = null;
         this.setState({
-            insertedMoney: 0, 
+            insertedMoney: 0,
             revenue: revenue + price,
             products: modifiedProducts,
             msg: 'Thank you!',
