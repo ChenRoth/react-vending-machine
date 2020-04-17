@@ -1,13 +1,13 @@
 import React from 'react';
-import {Button} from 'react-bootstrap'
+import {Button, ButtonGroup} from 'react-bootstrap'
 
 export class CoinSlot extends React.Component {
     render() {
         return (
-            <div>
-                <Button variant="success" onClick={() => this.handleBeforeInsert(5)}>5 ₪</Button>
-                <Button variant="success" onClick={() => this.handleBeforeInsert(10)}>10 ₪</Button>
-            </div>
+            <ButtonGroup vertical>
+                <Button variant="outline-success" onClick={() => this.handleBeforeInsert(5)}>5 ₪</Button>
+                <Button variant="outline-success" onClick={() => this.handleBeforeInsert(10)}>10 ₪</Button>
+            </ButtonGroup>
         )
     }
 

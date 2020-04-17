@@ -3,6 +3,7 @@ import { Display } from '../Display/Display';
 import { CoinSlot } from './CoinSlot/CoinSlot';
 import { Cell } from '../Cell/Cell';
 import { Container, Col, Row } from 'react-bootstrap';
+import './VendingMachine.css';
 
 const PRODUCTS_PER_SHELF = 4;
 
@@ -51,7 +52,7 @@ export class VendingMachine extends React.Component {
         const numOfShelves = Math.ceil(products.length / PRODUCTS_PER_SHELF);
         const shelves = Array.from(new Array(numOfShelves));
         return (
-            <Container>
+            <Container className="vending-machine">
                 <Row>
                     <Col xs={9}>
                         {shelves.map((_, i) =>
@@ -65,7 +66,9 @@ export class VendingMachine extends React.Component {
                         )}
                     </Col>
                     <Col xs={3}>
-                        <Display msg={msg} />
+                        <div className="py-3">
+                            <Display msg={msg} />
+                        </div>
                         <CoinSlot onBeforeInsert={this.handleOnBeforeInsert} />
                     </Col>
                 </Row>
