@@ -56,6 +56,13 @@ export class VendingMachine extends React.Component {
     }
 
     handleOnBeforeBuy = (product) => {
+        if (!product) {
+            this.setState({
+                msg: 'Sold out, please pick another',
+            });
+            return;
+        }
+
         const {price} = product;
         const {onBuy} = this.props;
         const {insertedMoney, products, revenue} = this.state;
