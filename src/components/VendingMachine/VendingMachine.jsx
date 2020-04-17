@@ -82,7 +82,7 @@ export class VendingMachine extends React.Component {
           5) hand the product and change (can be 0) to the customer
         */
 
-        const index = products.findIndex(p => p.id === product.id);
+        const index = products.findIndex(p => p && p.id === product.id);
         const modifiedProducts = products.slice();
         modifiedProducts[index] = null;
         this.setState({
