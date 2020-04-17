@@ -2,6 +2,7 @@ import React from 'react';
 import { Display } from '../Display/Display';
 import { CoinSlot } from './CoinSlot/CoinSlot';
 import { Cell } from '../Cell/Cell';
+import { Container, Col, Row } from 'react-bootstrap';
 
 const PRODUCTS_PER_SHELF = 4;
 
@@ -50,21 +51,25 @@ export class VendingMachine extends React.Component {
         const numOfShelves = Math.ceil(products.length / PRODUCTS_PER_SHELF);
         const shelves = Array.from(new Array(numOfShelves));
         return (
-            <div>
-                <div>
-                    {shelves.map((_, i) =>
-                        <div key={i} style={{ display: 'flex' }}>
-                            {products.slice(i * PRODUCTS_PER_SHELF, (i + 1) * PRODUCTS_PER_SHELF).map((p, j) =>
-                                <Cell key={j} product={p} onBeforeBuy={this.handleOnBeforeBuy} />
-                            )}
-                        </div>
-                    )}
-                </div>
-                <div>
-                    <Display msg={msg} />
-                    <CoinSlot onBeforeInsert={this.handleOnBeforeInsert} />
-                </div>
-            </div>
+            <Container>
+                <Row>
+                    <Col xs={10}>
+                        {shelves.map((_, i) =>
+                            <Row key={i}>
+                                {products.slice(i * PRODUCTS_PER_SHELF, (i + 1) * PRODUCTS_PER_SHELF).map((p, j) =>
+                                    <Col>
+                                        <Cell key={j} product={p} onBeforeBuy={this.handleOnBeforeBuy} />
+                                    </Col>
+                                )}
+                            </Row>
+                        )}
+                    </Col>
+                    <Col xs={2}>
+                        <Display msg={msg} />
+                        <CoinSlot onBeforeInsert={this.handleOnBeforeInsert} />
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 
