@@ -103,43 +103,86 @@ export class VendingMachine extends React.Component {
 
         const { price } = product;
         const { onBuy } = this.props;
-        const { insertedMoney, products, revenue } = this.state;
-        const isEnoughMoney = price <= insertedMoney;
+        const { cards, insertedCard, insertedMoney } = this.state;
+
+        if (insertedCard) {
+            //  use credit card for payment
+            
+            if (!this.validateMoney(product, insertedCard.credit)) {
+                return;
+            }
+            
+            const cardIndex = cards.findIndex(c => c.num === insertedCard.num);
+            const modifiedCards = cards.slice();
+            modifiedCards[cardIndex].credit -= price; 
+
+            this.setState({
+                insertedCard: null,
+                cards: modifiedCards,
+            });
+
+            this.finalizeSale(product);
+            onBuy(product, 0);
+
+        } else {
+
+            if (!this.validateMoney(product, insertedMoney)) {
+                return;
+            }
+            
+            this.setState({
+                insertedMoney: 0,
+            });
+
+            this.finalizeSale(product);        
+            const change = insertedMoney - price;
+            onBuy(product, change);
+        }
+    }
+
+    validateMoney = (product, credit) => {
+        const {price} = product;
+        const isEnoughMoney = price <= credit;
         if (!isEnoughMoney) {
             this.showMsg('Sorry dude, not enough dineros');
-            return;
+            this.setState({
+                insertedCard: null,
+            });
+            return false;
         }
-        /*
-          when a product is bought, we do the following:
-          1) show a message
-          2) reset the machine's insertedMoney
-          3) increase the revenue by the product price
-          4) remove the product from the machine
-          5) hand the product and change (can be 0) to the customer
-        */
+        return true;
+    }
 
+    finalizeSale = (product) => {
+        const { price } = product;
+        const { revenue } = this.state;
+        const modifiedProducts = this.pullProduct(product);
+        
+        setTimeout(() => {
+            this.setState({
+                revenue: revenue + price,
+                products: modifiedProducts,
+            });
+        }, 0);
+        
+        this.showMsg('Thank you');
+    }
+
+    pullProduct = (product) => {
+        const {products} = this.state;
         const index = products.findIndex(p => p && p.id === product.id);
         const modifiedProducts = products.slice();
         modifiedProducts[index] = null;
-        this.setState({
-            insertedMoney: 0,
-            revenue: revenue + price,
-            products: modifiedProducts,
-        });
-
-        this.showMsg('Thank you');
-
-        const change = insertedMoney - price;
-        onBuy(product, change);
+        return modifiedProducts;
     }
 
     showMsg = (msg) => {
         setTimeout(() => {
             this.setState({
                 msg,
-            });    
+            });
         }, 0);
-        
+
         setTimeout(() => {
             this.setState({
                 msg: '',
