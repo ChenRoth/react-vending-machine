@@ -41,6 +41,17 @@ export class VendingMachine extends React.Component {
                 price: 10.5,
             }
         ],
+        cards: [
+            {
+                num: 1234567890,
+                credit: 30,
+            },
+            {
+                num: 1111111111,
+                credit: 5,
+            }
+        ],
+        insertedCard: null,
         msg: '',
         insertedMoney: 0,
         revenue: 0,
