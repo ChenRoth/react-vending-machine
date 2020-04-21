@@ -82,7 +82,7 @@ export class VendingMachine extends React.Component {
                             <Display msg={msg} />
                         </div>
                         <CoinSlot onBeforeInsert={this.handleOnBeforeInsert} />
-                        <CardReader cards={cards} onInsertCard={this.handleOnInsertCard} />
+                        <CardReader cards={cards} onInsertCard={this.handleOnInsertCard} showMsg={this.showMsg} />
                     </Col>
                 </Row>
             </Container>

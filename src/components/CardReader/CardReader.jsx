@@ -27,16 +27,16 @@ export class CardReader extends React.Component {
 
     handleOnSwipe = (e) => {
         e.preventDefault();
-        const {cards, onInsertCard} = this.props;
+        const {cards, onInsertCard, showMsg} = this.props;
         const {num} = this.state;
         if (num.length !== 10) {
-            alert('CC # must be 10 digits');
+            showMsg('CC # must be 10 digits');
             return;
         }
 
         const insertedCard = cards.find(card => card.num === num);
         if (!insertedCard) {
-            alert('CC is invalid');
+            showMsg('CC is invalid');
             return;
         }
 
